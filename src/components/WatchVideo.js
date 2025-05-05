@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-pascal-case */
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router';
 import { closeMenu } from '../utils/appSlice';
 import Comments from './Comments';
+import N_LevelNestedCommentList from './N_LevelNestedCommentList';
 
 const WatchVideo = () => {
 
@@ -16,12 +18,8 @@ const WatchVideo = () => {
     useEffect(() => {
         dispatch(closeMenu());
         getVideoData();
-        getComments();
+        //getComments();
     }, [])
-
-    useEffect(() => {
-        console.log(comments)
-    }, [comments])
 
     const getComments = async () => {
         const commentsUrl = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=" + searchParams.get("v") + "&key=AIzaSyAl-wGqWEM1n1SsET1bPtNLWC0vInmA9wE";
@@ -56,9 +54,13 @@ const WatchVideo = () => {
                 <div className='m-2 p-2'>
                     <p className='font-bold text-xl m-2'>
                         {videoData.statistics.commentCount} Comments</p>
+                        {/* Comments from actual Youtube API */}
                     {comments.map((comment) =>
                         <Comments data={comment} />
                     )}
+                    {/* N-level nested comments
+                    */}
+                    <N_LevelNestedCommentList />  
                 </div>
             </div>
             <div className='m-4 p-4 '>
