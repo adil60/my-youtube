@@ -42,8 +42,8 @@ const N_LevelNestedCommentList = () => {
 
     return (
         <div>
-            {commentsData.map((comment) =>
-                <N_LevelComment comment={comment} />
+            {commentsData.map((comment,index) =>
+                <N_LevelComment key={index}  comment={comment} />
             )}
         </div>
     )

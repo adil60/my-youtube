@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { yt_logo, hamburger_logo, user_icon, YOUTUBE_SUGGEST_SEARCH_API, GOOGLE_API_KEY } from '../utils/constants'
+import { yt_logo, hamburger_logo, user_icon, YOUTUBE_SUGGEST_SEARCH_API } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleMenuButton } from '../utils/appSlice';
 import { postCacheResults } from '../utils/searchSlice';
+import { apiKey } from '../utils/constants';
 
 const Header = () => {
 
@@ -10,7 +11,7 @@ const Header = () => {
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const cacheResults = useSelector(store => store.search)
+  const cacheResults = useSelector(store => store.search);
   
   const toggleMenu = () => {
     dispatch(toggleMenuButton());
@@ -33,6 +34,11 @@ const Header = () => {
     }
 
   }, [search])
+
+  const getResultsFromSearch = async(query) => {
+    const json = await fetch("https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q="+query+"&key="+ apiKey);
+    const data = await json.json();
+  }
 
   const getSearchResults = async () => {
     const json = await fetch(YOUTUBE_SUGGEST_SEARCH_API + search);
@@ -62,9 +68,11 @@ const Header = () => {
         <p className='rounded-r-full p-2 border border-black px-2'>
           🔍</p>
         {showSuggestions &&
-          <  div className='mt-10 w-96 fixed shadow rounded-lg bg-white w-[45rem]'>
+          <  div className='mt-10 fixed shadow rounded-lg bg-white w-[45rem]'>
             {suggestions.length > 0 &&
-              suggestions.map((suggest) => <p className='p-1 m-2 hover:bg-gray-200'>🔍  {suggest}</p>
+              suggestions.map((suggest) => <p className='p-1 m-2 hover:bg-gray-200' 
+              onMouseDown={() => getResultsFromSearch(suggest)}
+              >🔍  {suggest}</p>
               )}
           </div>}
 

@@ -5,6 +5,8 @@ import { useSearchParams } from 'react-router';
 import { closeMenu } from '../utils/appSlice';
 import Comments from './Comments';
 import N_LevelNestedCommentList from './N_LevelNestedCommentList';
+import LiveChat from './LiveChat';
+import { apiKey } from '../utils/constants';
 
 const WatchVideo = () => {
 
@@ -13,38 +15,36 @@ const WatchVideo = () => {
     const [comments, setComments] = useState([]);
     const dispatch = useDispatch();
 
-    const videoUrl = "https://www.youtube.com/embed/" + searchParams.get("v") + "?si=LcWKomSk4VWnbFZ9";
+    const videoUrl = "https://www.youtube.com/embed/" + searchParams.get("v") + "?autoplay=1&mute=1";
 
     useEffect(() => {
         dispatch(closeMenu());
         getVideoData();
-        //getComments();
+        getComments();
     }, [])
 
     const getComments = async () => {
-        const commentsUrl = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=" + searchParams.get("v") + "&key=AIzaSyAl-wGqWEM1n1SsET1bPtNLWC0vInmA9wE";
+        const commentsUrl = "https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=" + searchParams.get("v") + "&key="+ apiKey;
         const json = await fetch(commentsUrl);
         const data = await json.json();
         setComments(data?.items);
     }
 
     const getVideoData = async () => {
-        const videoDataUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=" + searchParams.get("v") + "&key=AIzaSyAl-wGqWEM1n1SsET1bPtNLWC0vInmA9wE";
+        const videoDataUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=" + searchParams.get("v") + "&key=" + apiKey;
         const data = await fetch(videoDataUrl);
         const json = await data.json();
         setVideoData(json?.items[0]);
-        console.log(comments);
-
     }
 
     if (videoData === null) return <>Loading...</>
 
     return (
-        <div className='mx-16 grid grid-flow-col'>
+        <div className='ml-16 flex flex-row'>
             <div className='w-7/12 ml-8 '>
                 <div>
-                    <iframe width="700" height="400" className=' mt-3 rounded-2xl'
-                        src={videoUrl}
+                    <iframe width="750" height="400" className=' mt-3 rounded-2xl'
+                        src={videoUrl+"?autoplay=1"}
                         title="YouTube video player"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
@@ -59,12 +59,12 @@ const WatchVideo = () => {
                         <Comments data={comment} />
                     )}
                     {/* N-level nested comments
-                    */}
                     <N_LevelNestedCommentList />  
+                    */}
                 </div>
             </div>
-            <div className='m-4 p-4 '>
-                Shorts
+            <div className=' w-[400px]  h-[400px] ml-10 p-1 mt-2'>
+                <LiveChat />
             </div>
         </div>
     )

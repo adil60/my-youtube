@@ -10,7 +10,7 @@ const N_LevelComment = ( {comment} ) => {
       <div className="mx-2 px-1">
         <p className="font-bold">{name} </p>
         <p>{text} </p>
-        { replies.map((reply) => <N_LevelComment comment={reply} />  )  }
+        { replies.map((reply,index) => <N_LevelComment key={index} comment={reply} />  )  }
       </div>
     </div>
   )

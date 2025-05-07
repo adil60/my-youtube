@@ -7,16 +7,27 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Body from "./components/Body"
 import MainContainer from './components/MainContainer';
 import WatchVideo from './components/WatchVideo';
+import Results from './components/Results';
+import Demo from './components/Demo';
+import Demo2 from './components/Demo2';
 
 
 function App() {
 
   const appRoutes = createBrowserRouter(
     [
-      { path: "/" , element : <Body/>,children: [
-        { path : "/" , element : <MainContainer />},
-        { path :"/watch" , element : <WatchVideo /> }
-      ] }
+      {
+        path: "/", element: <Body />, children: [
+          { path: "/", element: <MainContainer /> },
+          { path: "/watch", element: <WatchVideo /> },
+          { path: "/results", element: <Results /> },
+          {
+            path: "/demo", element:
+              <>
+                <Demo /><Demo2 /> </>
+          }
+        ]
+      }
     ]
   )
 

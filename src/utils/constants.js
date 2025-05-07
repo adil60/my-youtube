@@ -4,7 +4,7 @@ export const hamburger_logo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4
 
 export const user_icon = "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png";
 
-const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+export const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
 
 export const YOUTUBE_POPULAR_API_50_RES = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=IN&key="+apiKey;
 
@@ -16,4 +16,4 @@ export const VIDEO_DATA = "https://youtube.googleapis.com/youtube/v3/videos?part
 
 export const YOUTUBE_SUGGEST_SEARCH_API = "https:/suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
 
-export const SEARCH_API = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=surfing&key=AIzaSyAl-wGqWEM1n1SsET1bPtNLWC0vInmA9wE"; 
+export const VIDEO_CATEGORIES = "https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&regionCode=IN&key=" + apiKey;
