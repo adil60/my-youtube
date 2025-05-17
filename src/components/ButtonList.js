@@ -14,7 +14,7 @@ const ButtonList = () => {
 const getVideoRec = async() => {
   const json = await fetch(VIDEO_CATEGORIES);
   const data = await json.json();
-  const trimData = data.items.slice(0,15);
+  const trimData = data?.items?.slice(0,15);
   setButtonItems(trimData);
 }
   return (

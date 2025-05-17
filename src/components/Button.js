@@ -1,15 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Button = ({ data }) => {
-
-  const navigate = useNavigate();
 
   const { title } = data;
 
   return (
     <div className="m-1">
       <Link 
-       to={"/results?q="+title}
+       to={"/results?q="+ encodeURIComponent(title) }
       >
       <button className="w-max px-4 py-1 rounded bg-gray-200"
       > {title}</button>

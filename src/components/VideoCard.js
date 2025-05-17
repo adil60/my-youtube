@@ -8,7 +8,7 @@ const VideoCard = ({ data }) => {
   return (
     <div
      className="m-2 p-2 cursor-pointer rounded-2xl  hover:shadow-2xl" >
-      <img src={thumbnailsUrl} alt='thumbnail' />
+      <img className="rounded-xl" src={thumbnailsUrl} alt='thumbnail' />
       <div className="h-auto">
         <h3 className="font-bold text-lg">{title} </h3>
         <p>{viewCount} views • {publishedAt} </p>

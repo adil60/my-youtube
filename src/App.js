@@ -10,22 +10,31 @@ import WatchVideo from './components/WatchVideo';
 import Results from './components/Results';
 import Demo from './components/Demo';
 import Demo2 from './components/Demo2';
+import Search from './components/Search';
 
+
+const AppLayout = () => {
+  return (
+    <>
+      <Header />
+
+      <Body />
+      </>
+
+  )
+}
 
 function App() {
 
   const appRoutes = createBrowserRouter(
     [
       {
-        path: "/", element: <Body />, children: [
+        path: "/", element: <AppLayout />, children: [
           { path: "/", element: <MainContainer /> },
           { path: "/watch", element: <WatchVideo /> },
           { path: "/results", element: <Results /> },
-          {
-            path: "/demo", element:
-              <>
-                <Demo /><Demo2 /> </>
-          }
+          { path: "/demo", element: <><Demo /><Demo2 /> </> },
+          { path: "/search", element: <Search /> }
         ]
       }
     ]
@@ -33,10 +42,7 @@ function App() {
 
   return (
     <Provider store={store} >
-      <div>
-        <Header />
-        <RouterProvider router={appRoutes} />
-      </div>
+      <RouterProvider router={appRoutes} />
     </Provider>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-//useRef is used so that a variable 
+//useRef is a React Hook that lets you reference a value that’s not needed for rendering.
 const Demo2 = () => {
     const [ stateVar , setStateVar ] = useState(0);
     let x = 0;
